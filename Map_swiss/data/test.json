@@ -1,0 +1,41 @@
+{
+    "features": [
+        {
+            "geometry": {
+                "coordinates": [
+                  7.4074140555507,
+                  46.948927005132
+                ], 
+                "type": "Point"
+            }, 
+            "properties": {
+                "createdAt": "2016-09-15T20:48:05Z", 
+                "freq_day": 1585, 
+                "placeLatitude": 46.813099999999999, 
+                "placeLongitude": 8.2241400000000002, 
+                "screenName": "letisieg", 
+                "userId": 2741685639
+            }, 
+            "type": "Feature"
+        }, 
+        {
+            "geometry": {
+                "coordinates": [
+                  7.074140555507,
+                  46.948927005132
+                ], 
+                "type": "Point"
+            }, 
+            "properties": {
+                "createdAt": "2016-09-15T20:48:15Z", 
+                "freq_day": 1585, 
+                "placeLatitude": 47.201000000000001, 
+                "placeLongitude": 5.9408199999999995, 
+                "screenName": "lebrubru", 
+                "userId": 435239151
+            }, 
+            "type": "Feature"
+        }
+    ], 
+    "type": "FeatureCollection"
+}

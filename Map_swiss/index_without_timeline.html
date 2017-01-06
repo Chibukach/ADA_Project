@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.css" />
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.ie.css" />
+    <![endif]-->
+
+    <script src="http://cdn.leafletjs.com/leaflet-0.5/leaflet-src.js"></script>
+    <script src="http://d3js.org/d3.v3.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/lodash.js/1.0.0-rc.3/lodash.underscore.min.js"></script>
+
+    <script type="text/javascript" src="./js/colorbrewer.js"></script>
+    <script type="text/javascript" src="./js/leaflet.points-layer.js"></script>
+
+    <style type="text/css">
+      html, body { margin: 0; padding: 0; height: 100%; }
+      #map { height: 100%; }
+      .leaflet-popup-content ul { padding-left: 1.5em; }
+    </style>
+  </head>
+  <body>
+    <div id='map' data-source="./data/quakes.json"></div>
+    <script type="text/javascript">
+    (function () {
+        //focusing swiss on SVG
+        var coordinates_center = [46.948927005132,7.4074140555507];
+
+        var extent, scale,
+            classes = 9, scheme_id = "BuPu",
+            reverse = false;
+            scheme = colorbrewer[scheme_id][classes],
+            container = L.DomUtil.get('map'),
+            map = L.map(container).setView(coordinates_center, 8);
+
+// Choose map layer : https://leaflet-extras.github.io/leaflet-providers/preview/
+
+        L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '<a href="http://content.stamen.com/dotspotting_toner_cartography_available_for_download">Stamen Toner</a>, <a href="http://www.openstreetmap.org/">OpenStreetMap</a>, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+            maxZoom: 10
+        }).addTo(map);
+
+        d3.json(container.dataset.source, function(collection) {
+            L.pointsLayer(collection, {
+                radius: function (d) {
+                    // Radius function of magnitude
+                    //return d.properties.magnitude * d.properties.magnitude;
+                    // Test with fixed radius
+                    return 10
+                },
+                applyStyle: circle_style
+            }).addTo(map);
+        });
+
+        function circle_style(circles) {
+            
+            if (!(extent && scale)) {
+                extent = d3.extent(circles.data(), function (d) { 
+                    return d.properties.depth; 
+                });
+                scale = d3.scale.log()
+                        .domain(reverse ? extent.reverse() : extent)
+                        .range(d3.range(classes));
+            }
+            
+            circles.attr('opacity', 0.4)
+                .attr('stroke', scheme[classes - 1])
+                .attr('stroke-width', 1)
+                .attr('fill', function (d) {
+                    // Fill with the depth
+                    //return scheme[(scale(d.properties.depth) * 10).toFixed()];
+                    // Test with fixed fill
+                    return scheme[(scale(d.properties.depth) * 10).toFixed()];
+                });
+            // Plot information
+            /*
+            circles.on('click', function (d, i) {
+                L.DomEvent.stopPropagation(d3.event);
+
+                var t = '<h3><%- id %></h3>' +
+                        '<ul>' +
+                        '<li>Magnitude: <%- mag %></li>' +
+                        '<li>Depth: <%- depth %>km</li>' +
+                        '</ul>';
+
+                var data = {
+                        id: d.id,
+                        mag: d.properties.magnitude,
+                        depth: d.properties.depth
+                    };
+
+                L.popup()
+                    .setLatLng([d.geometry.coordinates[1], d.geometry.coordinates[0]])
+                    .setContent(_.template(t, data))
+                    .openOn(map);
+
+            });
+            */
+        }
+    }());
+    </script>
+  </body>
+</html>
