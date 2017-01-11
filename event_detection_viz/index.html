@@ -42,6 +42,7 @@
   </head>
   <body>
     <div id='map' data-source="../data/event_detection_2010.json"></div>
+    <div id='SelectBox' ></div>
     <script type="text/javascript">
     (function () {
         //focusing swiss on SVG
@@ -59,6 +60,28 @@
             attribution: '<a href="http://content.stamen.com/dotspotting_toner_cartography_available_for_download">Stamen Toner</a>, <a href="http://www.openstreetmap.org/">OpenStreetMap</a>, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
             maxZoom: 10
         }).addTo(map);
+
+
+        // Select Box for year
+        var myDiv = document.getElementById("SelectBox");
+        //Create array of options to be added
+        var array = ["2010","2011"];
+        //Create and append select list
+        var selectList = document.createElement("select");
+        selectList.id = "Selectyear";
+        myDiv.appendChild(selectList);
+        //Create and append the options
+        for (var i = 0; i < array.length; i++) {
+            var option = document.createElement("option");
+            option.value = array[i];
+            option.text = array[i];
+            selectList.appendChild(option);
+        }
+        // Change listener
+        myDiv.onchange = function () {
+            // Debug
+            alert('You selected: '+selectList.value);
+        }
 
         d3.json(container.dataset.source, function(collection) {
             L.pointsLayer(collection, {
