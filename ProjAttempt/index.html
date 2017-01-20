@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+.canton {
+  fill: 	#0000ff;
+}
+
+
+.canton-boundary {
+  fill: none;
+  stroke: #ff0;
+  stroke-linejoin: round;
+}
+
+text {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 8px;
+  text-anchor: middle;
+}
+#progress :hover {
+  fill: orange;
+}
+
+#arc-features {
+  fill: none;
+  stroke: red;
+  stroke-width: 3px;
+  stroke-linecap: round;
+}
+#readyDraw {
+  fill: none;
+  stroke: red;
+  stroke-width: 3px;
+  stroke-linecap: round;
+}
+
+
+</style>
+<body>
+<script src="//d3js.org/d3.v3.min.js"></script>
+<script src="//d3js.org/topojson.v1.min.js"></script>
+<script src="//npmcdn.com/@turf/turf@3.5.1/turf.min.js"></script>
+<script>
+
+var width = 960,
+    height = 600,
+    opacity = 2;
+
+var projection = d3.geo.albers()
+    .rotate([0, 0])
+    .center([8.3, 46.8])
+    .scale(16000)
+    .translate([width / 2, height / 2])
+    .precision(.1);
+
+var path = d3.geo.path()
+    .projection(projection);
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+
+//actually swiss cantons
+var places = [
+  {
+    name: "Wollongong, Australia",
+    location: {
+      latitude:
+                46.21,
+      longitude: 6.14
+    }
+  },
+  {
+    name: "Newcastle, Australia",
+    location: {
+      latitude: 47.38,
+      longitude: 8.54
+    }
+  }
+]
+
+
+
+var ready  = [
+{
+    location:{
+        origin: {
+          latitude:46.21,
+          longitude: 6.14
+        },
+        destination: {
+          latitude: 47.38,
+          longitude: 8.54
+        }
+      }
+    },
+    {
+    location:{
+        origin: {
+          latitude:46.21,
+          longitude: 6.14
+        },
+        destination: {
+          latitude: 47.38,
+          longitude: 8.54
+        }
+      }
+    }
+]
+
+
+d3.json("data/readme-swiss.json", function(error, swiss) {
+  if (error) throw error;
+
+  var cantons = topojson.feature(swiss, swiss.objects.cantons);
+
+  var group = svg.selectAll("g")
+      .data(cantons.features)
+      .enter()
+        .append("g")
+        .attr("class","canton")
+        .attr("id","progress")
+        .append("path")
+        .attr("d",path)
+
+  svg.selectAll("text")
+      .data(cantons.features)
+    .enter().append("text")
+       .attr("id","cantonName")
+      .attr("transform", function(d) { return "translate(" + path.centroid(d) + ")"; })
+      .attr("dy", ".35em")
+      .text(function(d) { return d.properties.name; });
+
+
+
+
+svg.selectAll(".pin2")
+  .data(ready)
+  .enter().append("circle", ".pin2")
+  .attr("r", 5)
+  .attr("transform", function(d) {
+
+  var originProj =projection([
+      d.location.origin.longitude,
+      d.location.origin.latitude
+    ])
+
+      var destProj =projection([
+      d.location.destination.longitude,
+      d.location.destination.latitude
+    ])
+
+    ok = originProj[0]+50;
+
+    console.log("mapO:"+originProj)
+     console.log("dest0:"+destProj)
+
+    var quadPath = "M" + originProj[0] + "," + originProj[1] + "" + "Q" +  originProj[0] + "," + ok + "," + destProj[0] + "," + destProj[1]
+    var fontSizeQ = "18";
+    var fillColors = ["red", "blue", "green", "yellow"];
+
+    var defs = svg.append("svg:defs");
+
+
+
+    var patternQ = defs.append("svg:path")
+    .attr("id", "pathInfoQ")
+    .attr("d", quadPath);
+
+    //now add the 'g' element
+    var g1 = svg.append("svg:g");
+
+    //create the quadratic curve
+    var bezierQ = g1.append("path")
+    .attr("d", quadPath)
+    .attr("fill", fillColors[3])
+    .attr("opacity", opacity)
+    .attr("stroke", "green")
+    .attr("stroke-width", 2);
+
+
+
+
+
+
+
+
+
+  });
+
+
+svg.selectAll(".pin")
+  .data(places)
+  .enter().append("circle", ".pin")
+  .attr("r", 5)
+  .attr("transform", function(d) {
+
+  var myProj =projection([
+      d.location.longitude,
+      d.location.latitude
+    ])
+
+  console.log("pin" + myProj)
+    return "translate(" + myProj + ")";
+  });
+
+
+
+
+
+});
+
+
+
+
+</script>
