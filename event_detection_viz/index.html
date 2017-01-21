@@ -99,40 +99,52 @@
             d3.select("body").datum(collection.features).call(chart);
         });
 
-        var dataset;
-        var maximum;
+ 
+
+
+
+        function getMax(data, prop) {
+            var max = -10000000;
+            for (var i=0 ; i<data.length ; i++) {
+                max = Math.max(parseInt(data[i]["properties"][prop]), max);
+            }
+            return max;
+        }
+
+        function getMin(data, prop) {
+            var min = 3000000;
+            for (var i=0 ; i<data.length ; i++) {
+                min = Math.min(parseInt(data[i]["properties"][prop]), min);
+            }
+            return min;
+        }
+
+
         d3.json(container.dataset.source, function(error, data) {
-             dataset = data;
-             console.log(data.features)
-             maximum= d3.max(data.features, function(d) {
-                return d3.max(d.properties, function(e) {
-                    return d3.max(e.std_metrics);
-                })
-             });
-             console.log(maximum)
+            var maximum_legend = getMax(data.features, "std_metrics");
+            var minimum_legend = getMin(data.features, "std_metrics")
+
+
+            var minimumColor = "#BFD3E6", maximumColor = "#88419D";
+            //linear gradient key
+            var w = 140, h = 300;
+            var key = d3.select("body").append("svg").attr("id", "key").attr("width", w).attr("height", h);
+            var legend = key.append("defs").append("svg:linearGradient").attr("id", "gradient").attr("x1", "100%").attr("y1", "0%").attr("x2", "100%").attr("y2", "100%").attr("spreadMethod", "pad");
+            legend.append("stop").attr("offset", "0%").attr("stop-color", maximumColor).attr("stop-opacity", 1);
+            legend.append("stop").attr("offset", "100%").attr("stop-color", minimumColor).attr("stop-opacity", 1);
+            key.append("rect").attr("width", w - 100).attr("height", h - 100).style("fill", "url(#gradient)").attr("transform", "translate(0,10)");
+
+
+            var y = d3.scale.linear().range([250, 0]).domain([minimum_legend, maximum_legend]);
+
+            var yAxis = d3.svg.axis().scale(y).orient("right");
+
+            key.append("g").attr("class", "y axis").attr("transform", "translate(42,10)").call(yAxis).append("text").attr("transform", "rotate(-90)").attr("y", 30).attr("dy", ".71em").style("text-anchor", "end").text("std metrics");
+            //end key
+
         });
 
-
-
-        var minimum = d3.sc
-
-        var width = 900, height = 500;
-        var minimum = 0, maximum = 24;
-        var minimumColor = "#BFD3E6", maximumColor = "#88419D";
-        //linear gradient key
-        var w = 140, h = 300;
-        var key = d3.select("body").append("svg").attr("id", "key").attr("width", w).attr("height", h);
-        var legend = key.append("defs").append("svg:linearGradient").attr("id", "gradient").attr("x1", "100%").attr("y1", "0%").attr("x2", "100%").attr("y2", "100%").attr("spreadMethod", "pad");
-        legend.append("stop").attr("offset", "0%").attr("stop-color", maximumColor).attr("stop-opacity", 1);
-        legend.append("stop").attr("offset", "100%").attr("stop-color", minimumColor).attr("stop-opacity", 1);
-        key.append("rect").attr("width", w - 100).attr("height", h - 100).style("fill", "url(#gradient)").attr("transform", "translate(0,10)");
-
-        var y = d3.scale.linear().range([200, 0]).domain([minimum, maximum]);
-
-        var yAxis = d3.svg.axis().scale(y).orient("right");
-
-        key.append("g").attr("class", "y axis").attr("transform", "translate(42,10)").call(yAxis).append("text").attr("transform", "rotate(-90)").attr("y", 30).attr("dy", ".71em").style("text-anchor", "end").text("% Below FPL");
-        //end key
+        
 
         function get_time(d) {
             return d3.time.format.iso.parse(d.properties.dayOfTweet);
