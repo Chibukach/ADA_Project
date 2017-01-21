@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.css" />
 
+
     <script src="http://cdn.leafletjs.com/leaflet-0.5/leaflet-src.js"></script>
     <script src="http://d3js.org/d3.v3.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/lodash.js/1.0.0-rc.3/lodash.underscore.min.js"></script>
@@ -28,6 +29,17 @@
 
       .circle { visibility: hidden; }
       .circle.selected { visibility: visible; }
+      .legend {
+    line-height: 18px;
+    color: #555;
+    }
+    .legend i {
+        width: 18px;
+        height: 18px;
+        float: left;
+        margin-right: 8px;
+        opacity: 0.7;
+    }
 
       svg {
         font: 10px sans-serif;
@@ -44,10 +56,9 @@
     <div id='map' data-source="../data/event_detection_2010.json"></div>
     <div id='SelectBox' ></div>
     <script type="text/javascript">
-    (function () {
+
         //focusing swiss on SVG
         var coordinates_center = [46.948927005132,7.4074140555507];
-
         var extent, scale,
             classes = 9, scheme_id = "BuPu",
             reverse = false;
@@ -61,47 +72,16 @@
             maxZoom: 10
         }).addTo(map);
 
-
-
-
-        // Select Box for year
-        var myDiv = document.getElementById("SelectBox");
-        //Create array of options to be added
-        var array = ["2010","2011"];
-        //Create and append select list
-        var selectList = document.createElement("select");
-        selectList.id = "Selectyear";
-        myDiv.appendChild(selectList);
-        //Create and append the options
-        for (var i = 0; i < array.length; i++) {
-            var option = document.createElement("option");
-            option.value = array[i];
-            option.text = array[i];
-            selectList.appendChild(option);
+      function getColor(d) {
+            return d > 1000 ? '#800026' :
+                   d > 500  ? '#BD0026' :
+                   d > 200  ? '#E31A1C' :
+                   d > 100  ? '#FC4E2A' :
+                   d > 50   ? '#FD8D3C' :
+                   d > 20   ? '#FEB24C' :
+                   d > 10   ? '#FED976' :
+                              '#FFEDA0';
         }
-        // Change listener
-        myDiv.onchange = function () {
-            // Debug
-            alert('You selected: '+selectList.value);
-        }
-
-        d3.json(container.dataset.source, function(collection) {
-            L.pointsLayer(collection, {
-                radius: get_radius,
-                applyStyle: circle_style
-            }).addTo(map);
-
-            var chart = timeseries_chart(scheme)
-                    .x(get_time).xLabel("Event time")
-                    .y(get_nb_tweets).yLabel("Number of tweets per event")
-                    .brushmove(on_brush);
-
-            d3.select("body").datum(collection.features).call(chart);
-        });
-
- 
-
-
 
         function getMax(data, prop) {
             var max = -10000000;
@@ -119,32 +99,47 @@
             return min;
         }
 
-
+        var maximum_legend;
+        var minimum_legend;
         d3.json(container.dataset.source, function(error, data) {
-            var maximum_legend = getMax(data.features, "std_metrics");
-            var minimum_legend = getMin(data.features, "std_metrics")
 
+            maximum_legend = getMax(data.features, "std_metrics");
+            minimum_legend = getMin(data.features, "std_metrics");
 
-            var minimumColor = "#BFD3E6", maximumColor = "#88419D";
-            //linear gradient key
-            var w = 140, h = 300;
-            var key = d3.select("body").append("svg").attr("id", "key").attr("width", w).attr("height", h);
-            var legend = key.append("defs").append("svg:linearGradient").attr("id", "gradient").attr("x1", "100%").attr("y1", "0%").attr("x2", "100%").attr("y2", "100%").attr("spreadMethod", "pad");
-            legend.append("stop").attr("offset", "0%").attr("stop-color", maximumColor).attr("stop-opacity", 1);
-            legend.append("stop").attr("offset", "100%").attr("stop-color", minimumColor).attr("stop-opacity", 1);
-            key.append("rect").attr("width", w - 100).attr("height", h - 100).style("fill", "url(#gradient)").attr("transform", "translate(0,10)");
-
-
-            var y = d3.scale.linear().range([250, 0]).domain([minimum_legend, maximum_legend]);
-
-            var yAxis = d3.svg.axis().scale(y).orient("right");
-
-            key.append("g").attr("class", "y axis").attr("transform", "translate(42,10)").call(yAxis).append("text").attr("transform", "rotate(-90)").attr("y", 30).attr("dy", ".71em").style("text-anchor", "end").text("std metrics");
-            //end key
-
+            var legend = L.control({position: 'bottomright'});
+            legend.onAdd = function (map) {
+            var div = L.DomUtil.create('div', 'info legend'),
+                grades = [0, 10, 20, 50, 100, 200, 500, 1000],
+                labels = [];
+            // loop through our density intervals and generate a label with a colored square for each interval
+            for (var i = 0; i < grades.length; i++) {
+                div.innerHTML +=
+                    '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
+                    grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+            }
+            return div;
+        };
+        legend.addTo(map);
         });
 
-        
+
+    (function () {
+        d3.json(container.dataset.source, function(collection) {
+            L.pointsLayer(collection, {
+                radius: get_radius,
+                applyStyle: circle_style
+                //style: style
+            }).addTo(map);
+
+            var chart = timeseries_chart(scheme)
+                    .x(get_time).xLabel("Event time")
+                    .y(get_nb_tweets).yLabel("Number of tweets per event")
+                    .brushmove(on_brush);
+
+            d3.select("body").datum(collection.features).call(chart);
+
+        });
+    
 
         function get_time(d) {
             return d3.time.format.iso.parse(d.properties.dayOfTweet);
@@ -177,7 +172,7 @@
                 .attr('stroke', scheme[classes - 1])
                 .attr('stroke-width', 1)
                 .attr('fill', function (d) {
-                   return scheme[(scale(d.properties.std_metrics) * 1000).toFixed()];
+                   return getColor(d.properties.std_metrics);
                 });
                 //TODO look the different attr of the circles
 
@@ -203,6 +198,8 @@
             });
             
         }
+
+
 
         function timeseries_chart(color) {
 
