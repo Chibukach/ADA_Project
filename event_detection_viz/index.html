@@ -62,6 +62,8 @@
         }).addTo(map);
 
 
+
+
         // Select Box for year
         var myDiv = document.getElementById("SelectBox");
         //Create array of options to be added
@@ -97,12 +99,47 @@
             d3.select("body").datum(collection.features).call(chart);
         });
 
+        var dataset;
+        var maximum;
+        d3.json(container.dataset.source, function(error, data) {
+             dataset = data;
+             console.log(data.features)
+             maximum= d3.max(data.features, function(d) {
+                return d3.max(d.properties, function(e) {
+                    return d3.max(e.std_metrics);
+                })
+             });
+             console.log(maximum)
+        });
+
+
+
+        var minimum = d3.sc
+
+        var width = 900, height = 500;
+        var minimum = 0, maximum = 24;
+        var minimumColor = "#BFD3E6", maximumColor = "#88419D";
+        //linear gradient key
+        var w = 140, h = 300;
+        var key = d3.select("body").append("svg").attr("id", "key").attr("width", w).attr("height", h);
+        var legend = key.append("defs").append("svg:linearGradient").attr("id", "gradient").attr("x1", "100%").attr("y1", "0%").attr("x2", "100%").attr("y2", "100%").attr("spreadMethod", "pad");
+        legend.append("stop").attr("offset", "0%").attr("stop-color", maximumColor).attr("stop-opacity", 1);
+        legend.append("stop").attr("offset", "100%").attr("stop-color", minimumColor).attr("stop-opacity", 1);
+        key.append("rect").attr("width", w - 100).attr("height", h - 100).style("fill", "url(#gradient)").attr("transform", "translate(0,10)");
+
+        var y = d3.scale.linear().range([200, 0]).domain([minimum, maximum]);
+
+        var yAxis = d3.svg.axis().scale(y).orient("right");
+
+        key.append("g").attr("class", "y axis").attr("transform", "translate(42,10)").call(yAxis).append("text").attr("transform", "rotate(-90)").attr("y", 30).attr("dy", ".71em").style("text-anchor", "end").text("% Below FPL");
+        //end key
+
         function get_time(d) {
             return d3.time.format.iso.parse(d.properties.dayOfTweet);
         }
 
         function get_nb_tweets(d) {
-            return +d.properties.usersPerHashtag;
+            return d.properties.usersPerHashtag;
         }
 
         function on_brush(brush) {
@@ -157,9 +194,9 @@
 
         function timeseries_chart(color) {
 
-            var margin = { top: 5, right: 5, bottom: 40, left: 45 },
+            var margin = { top: 5, right: 5, bottom: 40, left: 55 },
                 width =  600 - margin.left - margin.right,
-                height = 80;
+                height = 120;
 
             var x = d3.time.scale(),
                 y = d3.scale.linear(),
@@ -192,14 +229,16 @@
                         .attr("x", width)
                         .attr("y", 30)
                         .style("text-anchor", "end")
+                        .style("font-weight","bold")
                         .text(x_label);
 
                     y_axis.append("text")
                         .attr("class", "label")
                         .attr("transform", "rotate(-90)")
-                        .attr("y", -40)
+                        .attr("y", -50)
                         .attr("dy", ".71em")
                         .style("text-anchor", "end")
+                        .style("font-weight","bold")
                         .text(y_label);
 
                     series.append("clipPath")
