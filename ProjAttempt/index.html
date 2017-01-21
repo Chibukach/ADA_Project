@@ -181,13 +181,6 @@ svg.selectAll(".pin2")
     .attr("stroke-width", 2);
 
 
-
-
-
-
-
-
-
   });
 
 
@@ -207,11 +200,226 @@ svg.selectAll(".pin")
   });
 
 
-
-
-
 });
 
+
+
+  var bezier = function bezier(t, p0, p1, p2) {
+    return (1-t)*((1-t)*p0 + t*p1) + t*((1-t)*p1 + t*p2);
+  }
+
+  var bezierLine = function bezierLine(t, p0, p1) {
+    return (1-t)*p0 + t*p1;
+  }
+
+
+
+
+  var x0=100, y0=350;
+  var x1=250, y1=50;
+  var x2=400, y2=350;
+
+  var drag = d3.behavior.drag()
+    .on("dragstart", dragstarted)
+    .on("drag", dragmove);
+
+    var drag1 = d3.behavior.drag()
+      .on("dragstart", dragstarted)
+      .on("drag", dragmove1);
+
+      var drag2 = d3.behavior.drag()
+        .on("dragstart", dragstarted)
+        .on("drag", dragmove2);
+  function dragstarted(d) {
+    d3.event.sourceEvent.stopPropagation();
+  }
+
+  var radius = 10;
+
+    function dragmove() {
+      x0 = Math.max(radius, Math.min(width - radius, d3.event.x));
+      y0 = Math.max(radius, Math.min(height - radius, d3.event.y));
+
+      d3.select(this).attr("cx", x0).attr("cy", y0);
+      bCurve.attr("d", "M "+ x0+","+y0 +" Q "+ x1+","+y1 +" "+ x2+","+y2);
+      A.attr("x", x0).attr("y", y0);
+      lineAB.attr("x1", x0).attr("y1", y0);
+      // movingLine.attr("x1", x0).attr("y1", y0);
+      movingCircle.attr("cx", x0).attr("cy", y0);
+      movingCircle1.attr("cx", x0).attr("cy", y0);
+    };
+
+    function dragmove1() {
+      x1 = Math.max(radius, Math.min(width - radius, d3.event.x));
+      y1 = Math.max(radius, Math.min(height - radius, d3.event.y));
+
+      d3.select(this).attr("cx", x1).attr("cy", y1);
+      bCurve.attr("d", "M "+ x0+","+y0 +" Q "+ x1+","+y1 +" "+ x2+","+y2);
+      B.attr("x", x1).attr("y", y1);
+      lineAB.attr("x2", x1).attr("y2", y1);
+      lineBC.attr("x1", x1).attr("y1", y1);
+      movingCircle2.attr("cx", x1).attr("cy", y1);
+    };
+
+    function dragmove2() {
+      x2 = Math.max(radius, Math.min(width - radius, d3.event.x));
+      y2 = Math.max(radius, Math.min(height - radius, d3.event.y));
+
+      d3.select(this).attr("cx", x2).attr("cy", y2);
+      bCurve.attr("d", "M "+ x0+","+y0 +" Q "+ x1+","+y1 +" "+ x2+","+y2);
+      C.attr("x", x2).attr("y", y2);
+      lineBC.attr("x2", x2).attr("y2", y2);
+      movingCircle3.attr("cx", x2).attr("cy", y2);
+    };
+  var bCurve = svg.append("path")
+  .attr("d", "M "+ x0+","+y0 +" Q 250,50 400,350")
+  .attr("stroke", "blue")
+  .attr("stroke-width", "2px")
+  .attr("fill", "none");
+
+  var A = svg.append("text")
+  .attr("x", x0)
+  .attr("y", y0)
+  .attr("dx", "-20")
+  .text("A");
+
+  var B = svg.append("text")
+  .attr("x", x1)
+  .attr("y", y1)
+  .attr("dx", "-20")
+  .text("B");
+
+  var C = svg.append("text")
+  .attr("x", x2)
+  .attr("y", y2)
+  .attr("dx", "20")
+  .text("C");
+
+  svg.append("circle")
+  .attr("cx", x0)
+  .attr("cy", y0)
+  .attr("r", radius)
+  .attr("stroke", "black")
+  .attr("stroke-width", "1px")
+  .attr("fill", "red")
+  .call(drag);
+
+  svg.append("circle")
+  .attr("cx", x1)
+  .attr("cy", y1)
+  .attr("r", radius)
+  .attr("stroke", "black")
+  .attr("stroke-width", "1px")
+  .attr("fill", "red")
+  .call(drag1);
+
+  svg.append("circle")
+  .attr("cx", x2)
+  .attr("cy", y2)
+  .attr("r", radius)
+  .attr("stroke", "black")
+  .attr("stroke-width", "1px")
+  .attr("fill", "red")
+  .call(drag2);
+
+  var lineAB = svg.append("line")
+  .attr("x1", x0)
+  .attr("y1", y0)
+  .attr("x2", x1)
+  .attr("y2", y1)
+  .attr("stroke", "red")
+  .attr("stroke-width", "1px");
+
+  var lineBC = svg.append("line")
+  .attr("x1", x1)
+  .attr("y1", y1)
+  .attr("x2", x2)
+  .attr("y2", y2)
+  .attr("stroke", "red")
+  .attr("stroke-width", "1px");
+
+  var movingLine = svg.append("line")
+  .attr("x1", x0)
+  .attr("y1", y0)
+  .attr("x2", x1)
+  .attr("y2", y1)
+  .attr("stroke", "green")
+  .attr("stroke-width", "1px");
+
+  var movingCircle = svg.append("circle")
+  .attr("cx", x0)
+  .attr("cy", y0)
+  .attr("r", "3px")
+  .attr("stroke", "black")
+  .attr("stroke-width", "1px")
+  .attr("fill", "black");
+
+  var movingCircle1 = svg.append("circle")
+  .attr("cx", x0)
+  .attr("cy", y0)
+  .attr("r", "3px")
+  .attr("stroke", "black")
+  .attr("stroke-width", "1px")
+  .attr("fill", "none");
+
+  var movingCircle2 = svg.append("circle")
+  .attr("cx", x1)
+  .attr("cy", y1)
+  .attr("r", "3px")
+  .attr("stroke", "black")
+  .attr("stroke-width", "1px")
+  .attr("fill", "none");
+
+  function drawCircle(i) {
+    var x = Math.round(bezier(i, x0, x1, x2));
+    var y = Math.round(bezier(i, y0, y1, y2));
+
+    movingCircle
+    .attr("cx", x)
+    .attr("cy", y)
+    .attr("r", "3px")
+    .attr("stroke", "black")
+    .attr("stroke-width", "1px")
+    .attr("fill", "black");
+
+    var lx1 = Math.round(bezierLine(i, x0, x1));
+    var lx2 = Math.round(bezierLine(i, x1, x2));
+    var ly1 = Math.round(bezierLine(i, y0, y1));
+    var ly2 = Math.round(bezierLine(i, y1, y2));
+
+    movingLine
+    .attr("x1", lx1)
+    .attr("y1", ly1)
+    .attr("x2", lx2)
+    .attr("y2", ly2)
+    .attr("stroke", "green")
+    .attr("stroke-width", "1px");
+
+    movingCircle1
+    .attr("cx", lx1)
+    .attr("cy", ly1)
+    .attr("r", "3px")
+    .attr("stroke", "black")
+    .attr("stroke-width", "1px")
+    .attr("fill", "none");
+
+    movingCircle2
+    .attr("cx", lx2)
+    .attr("cy", ly2)
+    .attr("r", "3px")
+    .attr("stroke", "black")
+    .attr("stroke-width", "1px")
+    .attr("fill", "none");
+  }
+
+  var t=0;
+  var last = 0;
+  d3.timer(function(elapsed) {
+    t = (t + (elapsed - last) / 5000) % 1;
+    last = elapsed;
+    drawCircle(t);
+  });
+  </script>
 
 
 
