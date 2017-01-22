@@ -99,12 +99,12 @@ var ready  = [
     {
     location:{
         origin: {
-          latitude:46.21,
-          longitude: 6.14
+          latitude:46.9480,
+          longitude: 7.474
         },
         destination: {
-          latitude: 47.38,
-          longitude: 8.54
+          latitude: 46.7739,
+          longitude: 8.6025
         }
       }
     }
@@ -137,7 +137,8 @@ d3.json("data/readme-swiss.json", function(error, swiss) {
 
 
 
-svg.selectAll(".flying").data(ready, function(d,i){console.log(d)
+svg.selectAll(".flying").data(ready, function(d,i){
+
 
   var originProj =projection([
       d.location.origin.longitude,
@@ -149,7 +150,6 @@ svg.selectAll(".flying").data(ready, function(d,i){console.log(d)
       d.location.destination.latitude
     ])
 
-    console.log(originProj)
 
   var start_x_px=originProj[0], start_y_px=originProj[1];
   var air_x_px=2*originProj[0], air_y_px=originProj[0];
@@ -181,24 +181,7 @@ svg.selectAll(".flying").data(ready, function(d,i){console.log(d)
   .attr("fill", "none");
 
 
-  svg.append("circle")
-  .attr("cx", start_x_px)
-  .attr("cy", start_y_px)
-  .attr("r", radius)
-  .attr("stroke", "black")
-  .attr("stroke-width", "1px")
-  .attr("fill", "red")
 
-
-
-
-  svg.append("circle")
-  .attr("cx", end_x_px)
-  .attr("cy", end_y_px)
-  .attr("r", radius)
-  .attr("stroke", "black")
-  .attr("stroke-width", "1px")
-  .attr("fill", "red")
 
 
   var movingCircle = svg.append("circle")
