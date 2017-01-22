@@ -136,8 +136,11 @@ d3.json("data/readme-swiss.json", function(error, swiss) {
 
 
 
-
-svg.selectAll(".flying").data(ready, function(d,i){console.log(d)
+svg.selectAll(".pin2")
+  .data(ready)
+  .enter().append("circle", ".pin2")
+  .attr("r", 5)
+  .attr("transform", function(d) {
 
   var originProj =projection([
       d.location.origin.longitude,
@@ -149,11 +152,55 @@ svg.selectAll(".flying").data(ready, function(d,i){console.log(d)
       d.location.destination.latitude
     ])
 
-    console.log(originProj)
+    ok = originProj[0]+50;
 
-  var start_x_px=originProj[0], start_y_px=originProj[1];
-  var air_x_px=2*originProj[0], air_y_px=originProj[0];
-  var end_x_px=destProj[0], end_y_px=destProj[1];
+    console.log("mapO:"+originProj)
+     console.log("dest0:"+destProj)
+
+    var quadPath = "M" + originProj[0] + "," + originProj[1] + "" + "Q" +  originProj[0] + "," + ok + "," + destProj[0] + "," + destProj[1]
+    var fontSizeQ = "18";
+    var fillColors = ["red", "blue", "green", "yellow"];
+
+    var defs = svg.append("svg:defs");
+
+
+
+    var patternQ = defs.append("svg:path")
+    .attr("id", "pathInfoQ")
+    .attr("d", quadPath);
+
+    //now add the 'g' element
+    var g1 = svg.append("svg:g");
+
+    //create the quadratic curve
+    var bezierQ = g1.append("path")
+    .attr("d", quadPath)
+    .attr("fill", fillColors[3])
+    .attr("opacity", opacity)
+    .attr("stroke", "green")
+    .attr("stroke-width", 2);
+
+
+  });
+
+
+svg.selectAll(".pin")
+  .data(places)
+  .enter().append("circle", ".pin")
+  .attr("r", 5)
+  .attr("transform", function(d) {
+
+  var myProj =projection([
+      d.location.longitude,
+      d.location.latitude
+    ])
+
+  console.log("pin" + myProj)
+    return "translate(" + myProj + ")";
+  });
+
+
+});
 
 
 
@@ -167,6 +214,10 @@ svg.selectAll(".flying").data(ready, function(d,i){console.log(d)
   }
 
 
+
+  var start_x_px=100, start_y_px=100;
+  var air_x_px=250, air_y_px=50;
+  var end_x_px=500, end_y_px=50;
 
 
   function dragstarted(d) {
@@ -233,20 +284,6 @@ svg.selectAll(".flying").data(ready, function(d,i){console.log(d)
     last = elapsed;
     drawCircle(t);
   });
-
-})
-
-
-
-
-
-
-
-
-});
-
-
-
 
 
 
