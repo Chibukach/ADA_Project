@@ -20,8 +20,8 @@
 
     <style>
         #map {
-            height: 400px;
-            width: 70%;
+            height: 500px;
+            width: 100%;
         }
         .leaflet-popup-content ul {
             padding-left: 1.5em;
@@ -69,12 +69,12 @@
         <div class="row">
             <div class="col-md-8 col-sm-12">
                 <font size="2">
-                <a href="https://github.com/dsar/mobility_pattern_detection">Processing</a> by Stylianos Agapiou, Athanasios Giannakopoulos, Dimitrios Sarigiannis. Vizualisation by Trinh Christophe, Ukachi Chibueze, Viola Mario.
+                <a href="https://github.com/dsar/mobility_pattern_detection">Processing</a> by Stylianos Agapiou, Athanasios Giannakopoulos, Dimitrios Sarigiannis. <a href="https://github.com/christophetrinh/ADA_Project">Vizualisation</a> by Trinh Christophe, Ukachi Chibueze, Viola Mario.
                 </font>
             </div>
-            <div class="col-md-8 col-sm-12">
+            <div class="col-xs-9">
                 <h4><b> Instruction :</b></h4>
-                <p> This visualization consist of a map which provides the detected event location and a time chart which give the number of tweets per event through time. In order to visualize the event location on the map, select a specific period on the chart on the bottom of the map. The selection is done by a click on the begining of the choosen period, then release the mouse button when the desired end period is reached. You have the possibility to slide the selected period across the time. Each event is marked with a bubble with a radius depending on the number of tweets. By clicking on the specific event, a marker appear and provides the hashtag and the standard deviation of the period of the choosen event.</p>
+                <p> This visualization consist of a map which provides the detected event location and a time chart which give the number of tweets per event through time. In order to visualize the event location on the map, select a specific period on the chart on the bottom of the map. The selection is done by a click on the begining of the choosen period, then release the mouse button when the desired end period is reached. You have the possibility to slide the selected period across the time. Each event is marked with a bubble with a radius depending on the number of tweets. By clicking on the specific event, a marker appear and provides the hashtag and the standard deviation of the period of the choosen event. The color of the bubble encode is related to the standard deviation of the period.</p>
             </div>
         </div>
 
@@ -95,7 +95,7 @@
         var coordinates_center = [46.948927005132, 7.4074140555507];
         var extent, scale,
             classes = 9,
-            scheme_id = "BuPu",
+            scheme_id = "PuRd",
             reverse = false;
         scheme = colorbrewer[scheme_id][classes],
             container = L.DomUtil.get('map'),
@@ -250,7 +250,7 @@
                         bottom: 40,
                         left: 50
                     },
-                    width = 670 - margin.left - margin.right,
+                    width = window.innerWidth - margin.left - margin.right - 100,
                     height = 120;
 
                 var x = d3.time.scale(),
