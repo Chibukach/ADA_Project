@@ -171,7 +171,7 @@
 
                 var chart = timeseries_chart(scheme)
                     .x(get_time).xLabel("Event time")
-                    .y(get_nb_tweets).yLabel("Number of users")
+                    .y(get_nb_tweets).yLabel("Number of users per Hashtag")
                     .brushmove(on_brush);
 
                 d3.select("body").datum(collection.features).call(chart);
@@ -249,7 +249,7 @@
                         bottom: 40,
                         left: 50
                     },
-                    width = window.innerWidth - margin.left - margin.right - 100,
+                    width = document.getElementById("map").offsetWidth - margin.left - margin.right,
                     height = 150;
 
                 var x = d3.time.scale(),
