@@ -74,7 +74,7 @@
             </div>
             <div class="col-xs-9">
                 <h4><b> Instruction :</b></h4>
-                <p> This visualization consist of a map which provides the detected event location and a time chart which give the number of tweets per event through time. In order to visualize the event location on the map, select a specific period on the chart on the bottom of the map. The selection is done by a click on the begining of the choosen period, then release the mouse button when the desired end period is reached. You have the possibility to slide the selected period across the time. Each event is marked with a bubble with a radius depending on the number of tweets. By clicking on the specific event, a marker appear and provides the hashtag and the standard deviation of the period of the choosen event. The color of the bubble encode is related to the standard deviation of the period.</p>
+                <p> This visualization consist of a map which provides the detected event location and a time chart which give the number of users who tweets about the event along time. In order to visualize the event location on the map, select a specific period on the chart on the bottom of the map. The selection is done by a click on the begining of the choosen period, then release the mouse button when the desired end period is reached. You have the possibility to slide the selected period across the time. Each event is marked with a bubble with a radius depending on the number of tweets. By clicking on the specific event, a marker appear and provides the hashtag and the standard deviation of the period of the choosen event. The color of the bubble encode is related to the standard deviation of the period.</p>
             </div>
         </div>
 
@@ -104,7 +104,6 @@
         // Choose map layer : https://leaflet-extras.github.io/leaflet-providers/preview/
         L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '<a href="http://content.stamen.com/dotspotting_toner_cartography_available_for_download">Stamen Toner</a>, <a href="http://www.openstreetmap.org/">OpenStreetMap</a>, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
-            maxZoom: 10
         }).addTo(map);
 
         function getColor(d, min, max) {
@@ -172,7 +171,7 @@
 
                 var chart = timeseries_chart(scheme)
                     .x(get_time).xLabel("Event time")
-                    .y(get_nb_tweets).yLabel("Number of tweets per event")
+                    .y(get_nb_tweets).yLabel("Number of users")
                     .brushmove(on_brush);
 
                 d3.select("body").datum(collection.features).call(chart);
@@ -197,7 +196,7 @@
             }
 
             function get_radius(d) {
-                return d.properties.usersPerHashtag;
+                return Math.sqrt(d.properties.usersPerHashtag);
             }
 
             function circle_style(circles) {
@@ -215,20 +214,20 @@
                     .attr('fill', function(d) {
                         return getColor(d.properties.std_metrics, d.properties.min_std, d.properties.max_std);
                     });
-                //TODO look the different attr of the circles
-
 
                 circles.on('click', function(d, i) {
                     L.DomEvent.stopPropagation(d3.event);
 
                     var t = '<ul>' +
                         '<li>Hashtag: <%- hashtag %></li>' +
+                        '<li>Number of users: <%- nb_user %></li>' +
                         '<li>Std: <%- std_metrics %></li>' +
                         '</ul>';
 
                     var data = {
                         hashtag: d.properties.hashtag,
-                        std_metrics: d.properties.std_metrics.toFixed(2)
+                        std_metrics: d.properties.std_metrics.toFixed(2),
+                        nb_user: d.properties.usersPerHashtag
                     };
 
                     L.popup()
@@ -251,7 +250,7 @@
                         left: 50
                     },
                     width = window.innerWidth - margin.left - margin.right - 100,
-                    height = 120;
+                    height = 150;
 
                 var x = d3.time.scale(),
                     y = d3.scale.linear(),
