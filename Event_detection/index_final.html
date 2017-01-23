@@ -79,7 +79,7 @@
         </div>
 
         <div class="row">
-            <div class="col-md-8" id="map" data-source="data/event_detection_2010.json">
+            <div class="col-md-8" id="map" data-source="data/event_detection.json">
             </div>
             <div class="col-md-4" id="chart">
             </div>
@@ -120,7 +120,7 @@
 
         function getGradient(min, max) {
             array = []
-            array[0] = min - 1;
+            array[0] = min;
             array[nb_category_legend - 1] = max + 1
             length = array[nb_category_legend - 1] - array[0];
 
@@ -154,7 +154,7 @@
                 for (var i = 0; i < grades.length - 1; i++) {
                     div.innerHTML +=
                         '<i style="background:' + getColor(grades[i], minimum_legend, maximum_legend) + '"></i> ' +
-                        grades[i] + ('&ndash;' + grades[i + 1] + '<br>');
+                        Math.trunc(grades[i]) + ('&ndash;' + Math.trunc(grades[i + 1]) + '<br>');
                 }
                 return div;
             };
@@ -197,7 +197,7 @@
             }
 
             function get_radius(d) {
-                return d.properties.usersPerHashtag * d.properties.usersPerHashtag;
+                return d.properties.usersPerHashtag;
             }
 
             function circle_style(circles) {
