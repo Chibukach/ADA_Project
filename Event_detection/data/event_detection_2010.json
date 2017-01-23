@@ -1,0 +1,105 @@
+{
+    "features": [
+        {
+            "geometry": {
+                "coordinates": [
+                    8.5359999999999996, 
+                    47.383000000000003
+                ], 
+                "type": "Point"
+            }, 
+            "properties": {
+                "dayOfTweet": "2010-10-20T00:00:00Z", 
+                "eventLatitude": 47.383000000000003, 
+                "eventLongitude": 8.5359999999999996, 
+                "hashtag": "#tedxzh", 
+                "max_std": 201.0, 
+                "min_std": 63.0, 
+                "std_metrics": 195.75353935943318, 
+                "usersPerHashtag": 8
+            }, 
+            "type": "Feature"
+        }, 
+        {
+            "geometry": {
+                "coordinates": [
+                    8.2910000000000004, 
+                    47.161999999999999
+                ], 
+                "type": "Point"
+            }, 
+            "properties": {
+                "dayOfTweet": "2010-05-29T00:00:00Z", 
+                "eventLatitude": 47.161999999999999, 
+                "eventLongitude": 8.2910000000000004, 
+                "hashtag": "#esc", 
+                "max_std": 201.0, 
+                "min_std": 63.0, 
+                "std_metrics": 62.666931825434581, 
+                "usersPerHashtag": 5
+            }, 
+            "type": "Feature"
+        }, 
+        {
+            "geometry": {
+                "coordinates": [
+                    9.1699999999999999, 
+                    47.667000000000002
+                ], 
+                "type": "Point"
+            }, 
+            "properties": {
+                "dayOfTweet": "2010-06-05T00:00:00Z", 
+                "eventLatitude": 47.667000000000002, 
+                "eventLongitude": 9.1699999999999999, 
+                "hashtag": "#bcbs10", 
+                "max_std": 201.0, 
+                "min_std": 63.0, 
+                "std_metrics": 201.29057225428639, 
+                "usersPerHashtag": 3
+            }, 
+            "type": "Feature"
+        }, 
+        {
+            "geometry": {
+                "coordinates": [
+                    7.5970000000000004, 
+                    47.567
+                ], 
+                "type": "Point"
+            }, 
+            "properties": {
+                "dayOfTweet": "2010-10-15T00:00:00Z", 
+                "eventLatitude": 47.567, 
+                "eventLongitude": 7.5970000000000004, 
+                "hashtag": "#gotthard", 
+                "max_std": 201.0, 
+                "min_std": 63.0, 
+                "std_metrics": 172.78440056863099, 
+                "usersPerHashtag": 3
+            }, 
+            "type": "Feature"
+        }, 
+        {
+            "geometry": {
+                "coordinates": [
+                    9.6240000000000006, 
+                    47.588000000000001
+                ], 
+                "type": "Point"
+            }, 
+            "properties": {
+                "dayOfTweet": "2010-12-03T00:00:00Z", 
+                "eventLatitude": 47.588000000000001, 
+                "eventLongitude": 9.6240000000000006, 
+                "hashtag": "#ff", 
+                "max_std": 201.0, 
+                "min_std": 63.0, 
+                "std_metrics": 105.32286314729204, 
+                "usersPerHashtag": 2
+            }, 
+            "type": "Feature"
+        }
+    ], 
+    "type": "FeatureCollection"
+}
