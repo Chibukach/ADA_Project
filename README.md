@@ -11,7 +11,7 @@
 
 ### Data description
 
-A tweet object is define as “status updates” or "post" of a specific user, it can be embedded, replied to, liked, unliked and deleted. Tweet object consist of several fields discribe as follow :
+A tweet object is define as "status updates” or "post" of a specific user, it can be embedded, replied to, liked, unliked and deleted. Tweet object consist of several fields discribe as follow :
 
 | Field   |      Type      |  Description |
 |---------|:---------------|:-------------|
