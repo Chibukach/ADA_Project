@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Movement Pattern Between Cantons</title>
+    <meta charset="utf-8">
+    <script src="//d3js.org/d3.v3.min.js"></script>
+    <script src="//d3js.org/queue.v1.min.js"></script>
+  </head>
+
+  <style>
+
+  body{
+  background-color : grey;
+  {
+
+    #explain{
+    color: blue;
+    }
+
+  </style>
+  <body>
+    <div id="explain">
+      <h1>THis  is not working</h1>
+    </div>
+
+    <div class = "startBar"></div>
+
+    <script>
+
+
+//height and width
+var width = 1000;
+    height = 1500;
+
+
+//svg canvas
+var svg = d3.select("body").append("svg")
+                .attr("width",width)
+                .attr("height",height)
+
+queue()
+    .defer(d3.csv, "cantonDetails.csv")
+    .await(ready);
+
+function ready(error, details) {
+  if (error) throw error;
+
+var start_x = 0.30*width;
+var start_y = 50;
+var homeBarHeight = 30
+var homeBarWidth = 20
+var wordSize = width/60
+  var scale_y = d3.scale.linear().domain([0, details.length]).range([0, height]);
+
+//Group to hold home cantons
+var homeCantonGroup=  svg.append("g").attr("class","Starting");
+
+//Bar to represent each home canton (add rects to the homeCanton group)
+var homeBar = homeCantonGroup.selectAll('rect')
+                              .data(details)
+                                .enter()
+                                .append("rect")
+
+var homeCantonAttributes = homeBar.attr('x',start_x)
+                          .attr('y',start_y)
+                          .attr("width",homeBarWidth)
+                          .attr("height",homeBarHeight)
+                          .attr("fill", "white")
+                          .attr("transform", function(d, i) { return "translate(0," + i * start_y + ")"; })
+
+
+//Bar to represent each home canton (add rects to the homeCanton group)
+var homeBarText = homeCantonGroup.selectAll('text')
+                              .data(details)
+                                .enter()
+                                .append("text")
+
+var homeCantonTextFormat = homeBarText.text(function(d){ return d.Code;})
+                                      .attr("font-family", "sans-serif")
+                                      .attr("font-size", wordSize)
+                                      .attr("fill", "red")
+                                      .attr("x",function(d){ return start_x - width/30 } )
+                                      .attr("y",function(d){return start_y + 0.5*homeBarHeight})
+                                      .attr("transform", function(d, i) { return "translate(0," + i * start_y + ")"; });
+
+
+
+var start_x1 = width -  0.30*width;
+var start_y1 = 50;
+var workBarHeight = 30
+var workBarWidth = 20
+var wordSize = width/60
+  var scale_y = d3.scale.linear().domain([0, details.length]).range([0, height]);
+
+//Group to hold work cantons
+var workCantonGroup=  svg.append("g").attr("class","Ending");
+
+//Bar to represent each work canton (add rects to the workCanton group)
+var workBar = workCantonGroup.selectAll('rect')
+                              .data(details)
+                                .enter()
+                                .append("rect")
+
+var workCantonAttributes = workBar.attr('x',start_x1)
+                          .attr('y',start_y1)
+                          .attr("width",workBarWidth)
+                          .attr("height",workBarHeight)
+                          .attr("fill", "white")
+                          .attr("transform", function(d, i) { return "translate(0," + i * start_y1 + ")"; })
+
+
+//Bar to represent each work canton (add rects to the workCanton group)
+var workBarText = workCantonGroup.selectAll('text')
+                              .data(details)
+                                .enter()
+                                .append("text")
+
+var workCantonTextFormat = workBarText.text(function(d){ return d.Code;})
+                                      .attr("font-family", "sans-serif")
+                                      .attr("font-size", wordSize)
+                                      .attr("fill", "red")
+                                      .attr("x",function(d){ return start_x1 - width/30 } )
+                                      .attr("y",function(d){return start_y1 + 0.5*workBarHeight})
+                                      .attr("transform", function(d, i) { return "translate(0," + i * start_y1 + ")"; });
+
+}
+
+    </script>
+  </body>
+</html>

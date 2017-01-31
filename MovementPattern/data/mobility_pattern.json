@@ -1,0 +1,343 @@
+{
+    "features": [
+        {
+            "features": [
+                {
+                    "WorkCanton": "AG", 
+                    "properties": {
+                        "nbUser_path": 1
+                    }, 
+                    "type": "FeatureCollection"
+                }
+            ], 
+            "homeCanton": "AG", 
+            "type": "FeatureCollection"
+        }, 
+        {
+            "features": [
+                {
+                    "WorkCanton": "ZG", 
+                    "properties": {
+                        "nbUser_path": 1
+                    }, 
+                    "type": "FeatureCollection"
+                }
+            ], 
+            "homeCanton": "AG", 
+            "type": "FeatureCollection"
+        }, 
+        {
+            "features": [
+                {
+                    "WorkCanton": "ZH", 
+                    "properties": {
+                        "nbUser_path": 3
+                    }, 
+                    "type": "FeatureCollection"
+                }
+            ], 
+            "homeCanton": "AG", 
+            "type": "FeatureCollection"
+        }, 
+        {
+            "features": [
+                {
+                    "WorkCanton": "GE", 
+                    "properties": {
+                        "nbUser_path": 2
+                    }, 
+                    "type": "FeatureCollection"
+                }
+            ], 
+            "homeCanton": "Auvergne-Rhône-Alpes", 
+            "type": "FeatureCollection"
+        }, 
+        {
+            "features": [
+                {
+                    "WorkCanton": "BE", 
+                    "properties": {
+                        "nbUser_path": 4
+                    }, 
+                    "type": "FeatureCollection"
+                }
+            ], 
+            "homeCanton": "BE", 
+            "type": "FeatureCollection"
+        }, 
+        {
+            "features": [
+                {
+                    "WorkCanton": "BS", 
+                    "properties": {
+                        "nbUser_path": 3
+                    }, 
+                    "type": "FeatureCollection"
+                }
+            ], 
+            "homeCanton": "BS", 
+            "type": "FeatureCollection"
+        }, 
+        {
+            "features": [
+                {
+                    "WorkCanton": "ZH", 
+                    "properties": {
+                        "nbUser_path": 1
+                    }, 
+                    "type": "FeatureCollection"
+                }
+            ], 
+            "homeCanton": "BW", 
+            "type": "FeatureCollection"
+        }, 
+        {
+            "features": [
+                {
+                    "WorkCanton": "BE", 
+                    "properties": {
+                        "nbUser_path": 1
+                    }, 
+                    "type": "FeatureCollection"
+                }
+            ], 
+            "homeCanton": "FR", 
+            "type": "FeatureCollection"
+        }, 
+        {
+            "features": [
+                {
+                    "WorkCanton": "GE", 
+                    "properties": {
+                        "nbUser_path": 4
+                    }, 
+                    "type": "FeatureCollection"
+                }
+            ], 
+            "homeCanton": "GE", 
+            "type": "FeatureCollection"
+        }, 
+        {
+            "features": [
+                {
+                    "WorkCanton": "VD", 
+                    "properties": {
+                        "nbUser_path": 1
+                    }, 
+                    "type": "FeatureCollection"
+                }
+            ], 
+            "homeCanton": "GE", 
+            "type": "FeatureCollection"
+        }, 
+        {
+            "features": [
+                {
+                    "WorkCanton": "GR", 
+                    "properties": {
+                        "nbUser_path": 1
+                    }, 
+                    "type": "FeatureCollection"
+                }
+            ], 
+            "homeCanton": "GR", 
+            "type": "FeatureCollection"
+        }, 
+        {
+            "features": [
+                {
+                    "WorkCanton": "TI", 
+                    "properties": {
+                        "nbUser_path": 1
+                    }, 
+                    "type": "FeatureCollection"
+                }
+            ], 
+            "homeCanton": "GR", 
+            "type": "FeatureCollection"
+        }, 
+        {
+            "features": [
+                {
+                    "WorkCanton": "ZH", 
+                    "properties": {
+                        "nbUser_path": 2
+                    }, 
+                    "type": "FeatureCollection"
+                }
+            ], 
+            "homeCanton": "GR", 
+            "type": "FeatureCollection"
+        }, 
+        {
+            "features": [
+                {
+                    "WorkCanton": "ZH", 
+                    "properties": {
+                        "nbUser_path": 1
+                    }, 
+                    "type": "FeatureCollection"
+                }
+            ], 
+            "homeCanton": "Grand Est", 
+            "type": "FeatureCollection"
+        }, 
+        {
+            "features": [
+                {
+                    "WorkCanton": "ZG", 
+                    "properties": {
+                        "nbUser_path": 1
+                    }, 
+                    "type": "FeatureCollection"
+                }
+            ], 
+            "homeCanton": "LU", 
+            "type": "FeatureCollection"
+        }, 
+        {
+            "features": [
+                {
+                    "WorkCanton": "ZH", 
+                    "properties": {
+                        "nbUser_path": 2
+                    }, 
+                    "type": "FeatureCollection"
+                }
+            ], 
+            "homeCanton": "LU", 
+            "type": "FeatureCollection"
+        }, 
+        {
+            "features": [
+                {
+                    "WorkCanton": "TI", 
+                    "properties": {
+                        "nbUser_path": 1
+                    }, 
+                    "type": "FeatureCollection"
+                }
+            ], 
+            "homeCanton": "Lombardia", 
+            "type": "FeatureCollection"
+        }, 
+        {
+            "features": [
+                {
+                    "WorkCanton": "SG", 
+                    "properties": {
+                        "nbUser_path": 1
+                    }, 
+                    "type": "FeatureCollection"
+                }
+            ], 
+            "homeCanton": "SG", 
+            "type": "FeatureCollection"
+        }, 
+        {
+            "features": [
+                {
+                    "WorkCanton": "ZH", 
+                    "properties": {
+                        "nbUser_path": 1
+                    }, 
+                    "type": "FeatureCollection"
+                }
+            ], 
+            "homeCanton": "SG", 
+            "type": "FeatureCollection"
+        }, 
+        {
+            "features": [
+                {
+                    "WorkCanton": "ZH", 
+                    "properties": {
+                        "nbUser_path": 1
+                    }, 
+                    "type": "FeatureCollection"
+                }
+            ], 
+            "homeCanton": "TG", 
+            "type": "FeatureCollection"
+        }, 
+        {
+            "features": [
+                {
+                    "WorkCanton": "TI", 
+                    "properties": {
+                        "nbUser_path": 1
+                    }, 
+                    "type": "FeatureCollection"
+                }
+            ], 
+            "homeCanton": "TI", 
+            "type": "FeatureCollection"
+        }, 
+        {
+            "features": [
+                {
+                    "WorkCanton": "LU", 
+                    "properties": {
+                        "nbUser_path": 1
+                    }, 
+                    "type": "FeatureCollection"
+                }
+            ], 
+            "homeCanton": "UR", 
+            "type": "FeatureCollection"
+        }, 
+        {
+            "features": [
+                {
+                    "WorkCanton": "VD", 
+                    "properties": {
+                        "nbUser_path": 4
+                    }, 
+                    "type": "FeatureCollection"
+                }
+            ], 
+            "homeCanton": "VD", 
+            "type": "FeatureCollection"
+        }, 
+        {
+            "features": [
+                {
+                    "WorkCanton": "VS", 
+                    "properties": {
+                        "nbUser_path": 1
+                    }, 
+                    "type": "FeatureCollection"
+                }
+            ], 
+            "homeCanton": "VS", 
+            "type": "FeatureCollection"
+        }, 
+        {
+            "features": [
+                {
+                    "WorkCanton": "BE", 
+                    "properties": {
+                        "nbUser_path": 1
+                    }, 
+                    "type": "FeatureCollection"
+                }
+            ], 
+            "homeCanton": "ZH", 
+            "type": "FeatureCollection"
+        }, 
+        {
+            "features": [
+                {
+                    "WorkCanton": "ZH", 
+                    "properties": {
+                        "nbUser_path": 24
+                    }, 
+                    "type": "FeatureCollection"
+                }
+            ], 
+            "homeCanton": "ZH", 
+            "type": "FeatureCollection"
+        }
+    ], 
+    "type": "FeatureCollection"
+}

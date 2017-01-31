@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+
+
+var start_x1 = 0.30*width;
+var start_y1 = 50;
+var workBarHeight = 30
+var workBarWidth = 20
+var wordSize = width/60
+  var scale_y = d3.scale.linear().domain([0, details.length]).range([0, height]);
+
+//Group to hold work cantons
+var workCantonGroup=  svg.append("g").attr("class","Starting");
+
+//Bar to represent each work canton (add rects to the workCanton group)
+var workBar = workCantonGroup.selectAll('rect')
+                              .data(details)
+                                .enter()
+                                .append("rect")
+
+var workCantonAttributes = workBar.attr('x',start_x1)
+                          .attr('y',start_y1)
+                          .attr("width",workBarWidth)
+                          .attr("height",workBarHeight)
+                          .attr("fill", "white")
+                          .attr("transform", function(d, i) { return "translate(0," + i * start_y1 + ")"; })
+
+
+//Bar to represent each work canton (add rects to the workCanton group)
+var workBarText = workCantonGroup.selectAll('text')
+                              .data(details)
+                                .enter()
+                                .append("text")
+
+var workCantonTextFormat = workBarText.text(function(d){ return d.Code;})
+                                      .attr("font-family", "sans-serif")
+                                      .attr("font-size", wordSize)
+                                      .attr("fill", "red")
+                                      .attr("x",function(d){ return start_x1 - width/30 } )
+                                      .attr("y",function(d){return start_y1 + 0.5*workBarHeight})
+                                      .attr("transform", function(d, i) { return "translate(0," + i * start_y1 + ")"; });
+}
+
+
+
+
+</body>
+</html>
