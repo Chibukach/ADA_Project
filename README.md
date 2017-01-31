@@ -7,7 +7,7 @@
 
 ### Abstract
 
->Twitter is a social network and real-time communication service. This platform became a means of sharing information with others, around [140 million](https://www.bloomberg.com/news/articles/2016-06-02/snapchat-passes-twitter-in-daily-usage) daily users interact on this comminucation service. The purpose of this project is to use geolocated tweets to identify specific event in Switzerland. The aim is to understand the concentration of emerging tweets on a specific location about an event. The target is to provide an interactive map visualization which gather all the detected event over a period of time. The final result is based on our paired group data who focus on the data handling part. Their pipeline will not be detailed here for more information please take a look at their [Github repository](https://github.com/sorooshafiee/ADA-SAF-Project).
+>Twitter is a social network and real-time communication service. This platform became a means of sharing information with others, around [140 million](https://www.bloomberg.com/news/articles/2016-06-02/snapchat-passes-twitter-in-daily-usage) daily users interact on this comminucation service. The purpose of this project is to use geolocated tweets to identify specific event in Switzerland. The aim is to understand the concentration of emerging tweets on a specific location about an event. The target is to provide an interactive map visualization which gather all the detected event over a period of time. The final result is based on our paired group data who focus on the data handling part. Their pipeline will not be detailed here for more information please take a look at their [Github repository](https://github.com/dsar/mobility_pattern_detection).
 
 ### Data description
 
@@ -31,7 +31,7 @@ The first step was to retrieve all the data from the cluster which covers 6 year
 The map is created using [Leaflet](http://leafletjs.com). We uses [d3js](https://d3js.org) javaScript library to create a dynamic visualisation and generate a svg overlay.
 
 #### Final data used
-Our final visualization show the data handled by our [paired team](https://github.com/sorooshafiee/ADA-SAF-Project). Basically, the dataframe given has the following structure :
+Our final visualization show the data handled by our [paired team](https://github.com/dsar/mobility_pattern_detection). Basically, the dataframe given has the following structure :
 
 | Field   |      Type      |  Description |
 |---------|:---------------|:-------------|
