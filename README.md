@@ -5,6 +5,11 @@
 - Ukachi Chibueze ([@Chibuu](https://github.com/Chibuu))
 - Viola Mario ([@marioviola](https://github.com/marioviola))
 
+
+### See the visualization
+>To see the visualization, you've to run a HTTP server using python. Start the HTTP Server on port 8000 using ```python python -m SimpleHTTPServer 8000 ```. Then go to your favourite browser and type http://127.0.0.1:8000. Then, go to the repository Event_detection.
+
+
 ### Abstract
 
 >Twitter is a social network and real-time communication service. This platform became a means of sharing information with others, around [140 million](https://www.bloomberg.com/news/articles/2016-06-02/snapchat-passes-twitter-in-daily-usage) daily users interact on this comminucation service. The purpose of this project is to use geolocated tweets to identify specific event in Switzerland. The aim is to understand the concentration of emerging tweets on a specific location about an event. The target is to provide an interactive map visualization which gather all the detected event over a period of time. The final result is based on our paired group data who focus on the data handling part. Their pipeline will not be detailed here for more information please take a look at their [Github repository](https://github.com/dsar/mobility_pattern_detection).
